@@ -14,10 +14,9 @@ NAG_TB_VAL = NAG_TB_VAL / 15
 End Function
 
 Function NAG_TB_MAX_VAL(rng As Range)
-Dim i As Integer
 Dim tempRes, tb As Double
-NAG_TB_MAX_VAL = 0
-For tb = 1 To 96
+NAG_TB_MAX_VAL = NAG_TB_VAL(rng, 1)
+For tb = 2 To 96
     tempRes = NAG_TB_VAL(rng, tb)
     If NAG_TB_MAX_VAL < tempRes Then
         NAG_TB_MAX_VAL = tempRes
@@ -26,15 +25,53 @@ Next tb
 End Function
 
 Function NAG_TB_MAX_TBLK(rng As Range)
-Dim i As Integer
 Dim tempRes, maxVal, tb As Double
-maxVal = 0
+maxVal = NAG_TB_VAL(rng, 1)
 NAG_TB_MAX_TBLK = 1
-For tb = 1 To 96
+For tb = 2 To 96
     tempRes = NAG_TB_VAL(rng, tb)
     If maxVal < tempRes Then
         maxVal = tempRes
         NAG_TB_MAX_TBLK = tb
     End If
 Next tb
+End Function
+Function NAG_TB_MIN_VAL(rng As Range)
+Dim tempRes, tb As Double
+NAG_TB_MIN_VAL = NAG_TB_VAL(rng, 1)
+For tb = 2 To 96
+    tempRes = NAG_TB_VAL(rng, tb)
+    If NAG_TB_MIN_VAL > tempRes Then
+        NAG_TB_MIN_VAL = tempRes
+    End If
+Next tb
+End Function
+
+Function NAG_TB_MIN_TBLK(rng As Range)
+Dim tempRes, minVal, tb As Double
+minVal = NAG_TB_VAL(rng, 1)
+NAG_TB_MIN_TBLK = 1
+For tb = 2 To 96
+    tempRes = NAG_TB_VAL(rng, tb)
+    If minVal > tempRes Then
+        minVal = tempRes
+        NAG_TB_MIN_TBLK = tb
+    End If
+Next tb
+End Function
+Function NAG_TB_AVG_VAL(rng As Range)
+Dim tb As Double
+NAG_TB_AVG_VAL = 0
+For tb = 1 To 96
+    NAG_TB_AVG_VAL = NAG_TB_AVG_VAL + NAG_TB_VAL(rng, tb)
+Next tb
+NAG_TB_AVG_VAL = NAG_TB_AVG_VAL / 96
+End Function
+Function NAG_TB_MU_VAL(rng As Range)
+Dim tb As Double
+NAG_TB_MU_VAL = 0
+For tb = 1 To 96
+    NAG_TB_MU_VAL = NAG_TB_MU_VAL + NAG_TB_VAL(rng, tb)
+Next tb
+NAG_TB_MU_VAL = NAG_TB_MU_VAL / 4000
 End Function
