@@ -1,18 +1,14 @@
 Option Explicit
 
 Function NAG_TB_VAL(rng As Range, tb As Double)
-Dim FirstRow, FirstCol, i As Integer
+Dim i As Integer
 If tb = 0 Then
-    NAG_TB_VAL = Cells(rng.Row, rng.Column).Value
+    NAG_TB_VAL = rng.Cells(1, 1).Value
     Exit Function
 End If
-
-FirstRow = rng.Row + 1 + (tb - 1) * 15
-FirstCol = rng.Column
-
 NAG_TB_VAL = 0
 For i = 0 To 14
-    NAG_TB_VAL = NAG_TB_VAL + Cells(FirstRow + i, FirstCol).Value
+    NAG_TB_VAL = NAG_TB_VAL + rng.Cells(1, 1).Offset((1 + (tb - 1) * 15 + i), 0).Value
 Next i
 NAG_TB_VAL = NAG_TB_VAL / 15
 End Function
