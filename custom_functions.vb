@@ -1,6 +1,7 @@
 Option Explicit
 
 Function NAG_TB_VAL(rng As Range, tb As Double)
+	Application.Volatile True
 	Dim i As Integer
 	If tb = 1 Then
 		NAG_TB_VAL = rng.Cells(1, 1).Value
@@ -14,6 +15,7 @@ Function NAG_TB_VAL(rng As Range, tb As Double)
 End Function
 
 Function NAG_TB_MAX_VAL(rng As Range)
+	Application.Volatile True
 	Dim tempRes, tb As Double
 	NAG_TB_MAX_VAL = NAG_TB_VAL(rng, 1)
 	For tb = 2 To 96
@@ -25,6 +27,7 @@ Function NAG_TB_MAX_VAL(rng As Range)
 End Function
 
 Function NAG_TB_MAX_TBLK(rng As Range)
+	Application.Volatile True
 	Dim tempRes, maxVal, tb As Double
 	maxVal = NAG_TB_VAL(rng, 1)
 	NAG_TB_MAX_TBLK = 1
@@ -38,6 +41,7 @@ Function NAG_TB_MAX_TBLK(rng As Range)
 End Function
 
 Function NAG_TB_MIN_VAL(rng As Range)
+	Application.Volatile True
 	Dim tempRes, tb As Double
 	NAG_TB_MIN_VAL = NAG_TB_VAL(rng, 1)
 	For tb = 2 To 96
@@ -49,6 +53,7 @@ Function NAG_TB_MIN_VAL(rng As Range)
 End Function
 
 Function NAG_TB_MIN_TBLK(rng As Range)
+	Application.Volatile True
 	Dim tempRes, minVal, tb As Double
 	minVal = NAG_TB_VAL(rng, 1)
 	NAG_TB_MIN_TBLK = 1
@@ -62,6 +67,7 @@ Function NAG_TB_MIN_TBLK(rng As Range)
 End Function
 
 Function NAG_TB_AVG_VAL(rng As Range)
+	Application.Volatile True
 	Dim tb As Double
 	NAG_TB_AVG_VAL = 0
 	For tb = 1 To 96
@@ -71,6 +77,7 @@ Function NAG_TB_AVG_VAL(rng As Range)
 End Function
 
 Function NAG_TB_MU_VAL(rng As Range)
+	Application.Volatile True
 	Dim tb As Double
 	NAG_TB_MU_VAL = 0
 	For tb = 1 To 96
@@ -80,6 +87,7 @@ Function NAG_TB_MU_VAL(rng As Range)
 End Function
 ''UI blocks functions
 Function NAG_TB_UI_VAL(schRng As Range, actRng As Range, tb As Double)
+	Application.Volatile True
 	Dim i As Integer
 	If tb = 1 Then
 		NAG_TB_UI_VAL = actRng.Cells(1, 1).Value - schRng.Cells(1, 1).Value
@@ -93,6 +101,7 @@ Function NAG_TB_UI_VAL(schRng As Range, actRng As Range, tb As Double)
 End Function
 
 Function NAG_TB_MAX_UI_VAL(schRng As Range, actRng As Range)
+	Application.Volatile True
 	Dim tempRes, tb As Double
 	NAG_TB_MAX_UI_VAL = NAG_TB_UI_VAL(schRng, actRng, 1)
 	For tb = 2 To 96
@@ -104,6 +113,7 @@ Function NAG_TB_MAX_UI_VAL(schRng As Range, actRng As Range)
 End Function
 
 Function NAG_TB_MAX_UI_TBLK(schRng As Range, actRng As Range)
+	Application.Volatile True
 	Dim tempRes, maxVal, tb As Double
 	maxVal = NAG_TB_UI_VAL(schRng, actRng, 1)
 	NAG_TB_MAX_UI_TBLK = 1
@@ -117,6 +127,7 @@ Function NAG_TB_MAX_UI_TBLK(schRng As Range, actRng As Range)
 End Function
 
 Function NAG_TB_MIN_UI_VAL(schRng As Range, actRng As Range)
+	Application.Volatile True
 	Dim tempRes, tb As Double
 	NAG_TB_MIN_UI_VAL = NAG_TB_UI_VAL(schRng, actRng, 1)
 	For tb = 2 To 96
@@ -128,6 +139,7 @@ Function NAG_TB_MIN_UI_VAL(schRng As Range, actRng As Range)
 End Function
 
 Function NAG_TB_MIN_UI_TBLK(schRng As Range, actRng As Range)
+	Application.Volatile True
 	Dim tempRes, minVal, tb As Double
 	minVal = NAG_TB_UI_VAL(schRng, actRng, 1)
 	NAG_TB_MIN_UI_TBLK = 1
@@ -141,6 +153,7 @@ Function NAG_TB_MIN_UI_TBLK(schRng As Range, actRng As Range)
 End Function
 
 Function NAG_TB_AVG_UI_VAL(schRng As Range, actRng As Range)
+	Application.Volatile True
 	Dim tb As Double
 	NAG_TB_AVG_UI_VAL = 0
 	For tb = 1 To 96
@@ -150,6 +163,7 @@ Function NAG_TB_AVG_UI_VAL(schRng As Range, actRng As Range)
 End Function
 
 Function NAG_TB_MU_UI_VAL(schRng As Range, actRng As Range)
+	Application.Volatile True
 	Dim tb As Double
 	NAG_TB_MU_UI_VAL = 0
 	For tb = 1 To 96
@@ -159,31 +173,33 @@ Function NAG_TB_MU_UI_VAL(schRng As Range, actRng As Range)
 End Function
 
 Function NAG_HSEARCH(rng As Range, str As String, vOffset As Double) As Range
-   Dim i, sCol, sRow As Integer
-   sCol = 0
-   sRow = 0
-   For i = 1 To rng.Columns.Count
-       If rng.Cells(1, 1).Offset(0, i - 1).Value = str Then
-           sCol = i
-           sRow = 0
-       End If
-   Next i
-   Set NAG_HSEARCH = rng.Cells(1 + vOffset, sCol)
+	Application.Volatile True
+	Dim i, sCol, sRow As Integer
+	sCol = 0
+	sRow = 0
+	For i = 1 To rng.Columns.Count
+		If rng.Cells(1, 1).Offset(0, i - 1).Value = str Then
+			sCol = i
+			sRow = 0
+		End If
+	Next i
+	Set NAG_HSEARCH = rng.Cells(vOffset + 1, sCol)
 End Function
 
 Function NAG_TABLE_SEARCH(hRng As Range, hStr As String, vRng As Range, vStr As String) As Range
-   Dim i, sCol, sRow As Integer
-   sCol = 0
-   sRow = 0
-   For i = 1 To hRng.Columns.Count
-       If hRng.Cells(1, 1).Offset(0, i - 1).Value = hStr Then
-           sCol = hRng.Column + i - 1
-       End If
-   Next i
-   For i = 1 To vRng.Rows.Count
-       If vRng.Cells(1, 1).Offset(i - 1, 0).Value = vStr Then
-           sRow = vRng.Row + i - 1
-       End If
-   Next i
-   Set NAG_TABLE_SEARCH = hRng.Worksheet.Cells(sRow, sCol)
+	Application.Volatile True
+	Dim i, sCol, sRow As Integer
+	sCol = 0
+	sRow = 0
+	For i = 1 To hRng.Columns.Count
+		If hRng.Cells(1, 1).Offset(0, i - 1).Value = hStr Then
+			sCol = hRng.Column + i - 1
+		End If
+	Next i
+	For i = 1 To vRng.Rows.Count
+		If vRng.Cells(1, 1).Offset(i - 1, 0).Value = vStr Then
+			sRow = vRng.Row + i - 1
+		End If
+	Next i
+	Set NAG_TABLE_SEARCH = hRng.Worksheet.Cells(sRow, sCol)
 End Function
