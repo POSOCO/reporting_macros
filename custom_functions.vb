@@ -157,3 +157,16 @@ Function NAG_TB_MU_UI_VAL(schRng As Range, actRng As Range)
 	Next tb
 	NAG_TB_MU_UI_VAL = NAG_TB_MU_UI_VAL / 4000
 End Function
+
+Function NAG_HSEARCH(rng As Range, str As String, vOffset As Double) As Range
+   Dim i, sCol, sRow As Integer
+   sCol = 0
+   sRow = 0
+   For i = 1 To rng.Columns.Count
+       If rng.Cells(1, 1).Offset(0, i - 1).Value = str Then
+           sCol = i
+           sRow = 0
+       End If
+   Next i
+   Set NAG_HSEARCH = rng.Cells(1 + vOffset, sCol)
+End Function
