@@ -170,3 +170,20 @@ Function NAG_HSEARCH(rng As Range, str As String, vOffset As Double) As Range
    Next i
    Set NAG_HSEARCH = rng.Cells(1 + vOffset, sCol)
 End Function
+
+Function NAG_TABLE_SEARCH(hRng As Range, hStr As String, vRng As Range, vStr As String) As Range
+   Dim i, sCol, sRow As Integer
+   sCol = 0
+   sRow = 0
+   For i = 1 To hRng.Columns.Count
+       If hRng.Cells(1, 1).Offset(0, i - 1).Value = hStr Then
+           sCol = hRng.Column + i - 1
+       End If
+   Next i
+   For i = 1 To vRng.Rows.Count
+       If vRng.Cells(1, 1).Offset(i - 1, 0).Value = vStr Then
+           sRow = vRng.Row + i - 1
+       End If
+   Next i
+   Set NAG_TABLE_SEARCH = hRng.Worksheet.Cells(sRow, sCol)
+End Function
