@@ -176,11 +176,9 @@ Function NAG_HSEARCH(rng As Range, str As String, vOffset As Double) As Range
 	Application.Volatile True
 	Dim i, sCol, sRow As Integer
 	sCol = 0
-	sRow = 0
 	For i = 1 To rng.Columns.Count
 		If rng.Cells(1, 1).Offset(0, i - 1).Value = str Then
 			sCol = i
-			sRow = 0
 		End If
 	Next i
 	Set NAG_HSEARCH = rng.Cells(vOffset + 1, sCol)
@@ -234,4 +232,16 @@ Function NAG_TABLE_SEARCH_TWO(hRng As Range, hStr As String, hBRng As Range, hBS
        End If
    Next i
    Set NAG_TABLE_SEARCH_TWO = hBRng.Worksheet.Cells(sRow, sCol)
+End Function
+
+Function NAG_VSEARCH(rng As Range, str As String, hOffset As Double) As Range
+   Application.Volatile True
+   Dim i, sCol, sRow As Integer
+   sRow = 0
+   For i = 1 To rng.Rows.Count
+       If rng.Cells(1, 1).Offset(i - 1, 0).Value = str Then
+           sRow = i
+       End If
+   Next i
+   Set NAG_VSEARCH = rng.Cells(sRow, hOffset + 1)
 End Function
