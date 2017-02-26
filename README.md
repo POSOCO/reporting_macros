@@ -5,3 +5,6 @@ All the VB Script codes for custom functions and and macros in reporting excel s
 You can format VB code at http://warp.senecac.on.ca/timothy.mckenna/CodeFormatter.asp
 
 1. SCHUPD seperate sheets required for Gen SCH, NET, UI; Const SCH, NET, UI; Volt Max Min
+
+# Todos
+1. Use Exit For to exit for loop after match occurence
