@@ -176,7 +176,7 @@ Function NAG_HSEARCH(rng As Range, str As String, vOffset As Double) As Range
 	Application.Volatile True
 	Dim i, sCol, sRow As Integer
 	sCol = 0
-	For i = 1 To rng.Columns.Count And i < 1000
+	For i = 1 To rng.Columns.Count
 		If rng.Cells(1, 1).Offset(0, i - 1).Value = str Then
 			sCol = i
 			Exit For
@@ -190,13 +190,13 @@ Function NAG_TABLE_SEARCH(hRng As Range, hStr As String, vRng As Range, vStr As 
 	Dim i, sCol, sRow As Integer
 	sCol = 0
 	sRow = 0
-	For i = 1 To hRng.Columns.Count And i < 1000
+	For i = 1 To hRng.Columns.Count
 		If hRng.Cells(1, 1).Offset(0, i - 1).Value = hStr Then
 			sCol = hRng.Column + i - 1
 			Exit For
 		End If
 	Next i
-	For i = 1 To vRng.Rows.Count And i < 1000
+	For i = 1 To vRng.Rows.Count
 		If vRng.Cells(1, 1).Offset(i - 1, 0).Value = vStr Then
 			sRow = vRng.Row + i - 1
 			Exit For
@@ -210,7 +210,7 @@ Function NAG_HSEARCH_TWO(topRng As Range, topStr As String, botRng As Range, bot
 	Dim i, sCol, sRow As Integer
 	sCol = 0
 	sRow = 0
-	For i = 1 To botRng.Columns.Count And i < 1000
+	For i = 1 To botRng.Columns.Count
 		If botRng.Cells(1, 1).Offset(0, i - 1).Value = botStr And topRng.Cells(1, 1).Offset(0, i - 1).Value = topStr Then
 			sCol = i
 			sRow = 0
@@ -225,13 +225,13 @@ Function NAG_TABLE_SEARCH_TWO(hRng As Range, hStr As String, hBRng As Range, hBS
 	Dim i, sCol, sRow As Integer
 	sCol = 0
 	sRow = 0
-	For i = 1 To hBRng.Columns.Count And i < 1000
+	For i = 1 To hBRng.Columns.Count
 		If hBRng.Cells(1, 1).Offset(0, i - 1).Value = hBStr And hRng.Cells(1, 1).Offset(0, i - 1).Value = hStr Then
 			sCol = hBRng.Column + i - 1
 			Exit For
 		End If
 	Next i
-	For i = 1 To vRng.Rows.Count And i < 1000
+	For i = 1 To vRng.Rows.Count
 		If vRng.Cells(1, 1).Offset(i - 1, 0).Value = vStr Then
 			sRow = vRng.Row + i - 1
 			Exit For
@@ -244,7 +244,7 @@ Function NAG_VSEARCH(rng As Range, str As String, hOffset As Double) As Range
 	Application.Volatile True
 	Dim i, sCol, sRow As Integer
 	sRow = 0
-	For i = 1 To rng.Rows.Count And i < 1000
+	For i = 1 To rng.Rows.Count
 		If rng.Cells(1, 1).Offset(i - 1, 0).Value = str Then
 			sRow = i
 			Exit For
