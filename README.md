@@ -8,3 +8,4 @@ You can format VB code at http://warp.senecac.on.ca/timothy.mckenna/CodeFormatte
 
 # Todos
 1. Use Exit For to exit for loop after match occurence -- done
+2. Limit iteration to 1000
