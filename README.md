@@ -17,5 +17,5 @@ You can format VB code at http://warp.senecac.on.ca/timothy.mckenna/CodeFormatte
 
 ## Philosophies for reporting
 1. All the data values should be accessible via labels and not only by addresses
-2. Base data should directly be derived from raw data. It should not be derived from derived data or another base data
+2. Base data should directly be derived from raw data. It should not be derived from derived data or another base data of the same level
 3. While using formulas or functions that data input variables should not be repeating and should follow a pattern, so that we can drag down to get the series
