@@ -67,7 +67,7 @@ Function MVC_GET_STATE_SCH(state_Str As String, attr As String) As String
 
 	res = NAG_TABLE_SEARCH_TWO(tHRng, state_Str, tHRng.Offset(RowOffset:=1), "Total", tVRng, searchStr).Cells(1, 1).Value
 	If attr = "MU" Then
-		res = res / 4000
+		res = res / 1000
 	End If
 	MVC_GET_STATE_SCH = res
 End Function
