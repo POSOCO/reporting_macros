@@ -273,3 +273,18 @@ Function NAG_VSEARCH(rng As Range, str As String, hOffset As Double) As Range
 	Next i
 	Set NAG_VSEARCH = rng.Cells(sRow, hOffset + 1)
 End Function
+
+Function FileIsOpenTest(TargetWorkbook As String) As Boolean
+	'Step 1: Declare your variables
+	Dim TestBook As Workbook
+	'Step 2: Tell Excel to resume on error
+	On Error Resume Next
+	'Step 3: Try to assign the target workbook to TestBook
+	Set TestBook = Workbooks(TargetWorkbook)
+	'Step 4: If no error occurred, workbook is already open
+	If Err.Number = 0 Then
+		FileIsOpenTest = True
+	Else
+		FileIsOpenTest = False
+	End If
+End Function
