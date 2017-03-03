@@ -53,7 +53,7 @@ Function MVC_GET_STATE_SCH(state_Str As String, attr As String) As String
 	modelFileName = "DATA_MVC.xlsx"
 
 	If Not FileIsOpenTest(modelFileName) Then
-		Workbooks.Open Filename:="" & modelFileName
+		Workbooks.Open Filename:=ActiveWorkbook.Path & "\" & modelFileName
 	End If
 
 	Set tHRng = Range(getTableHRange("CONST_SCH"))
@@ -69,5 +69,5 @@ Function MVC_GET_STATE_SCH(state_Str As String, attr As String) As String
 	If attr = "MU" Then
 		res = res / 4000
 	End If
-	GET_STATE_SCH = res
+	MVC_GET_STATE_SCH = res
 End Function
