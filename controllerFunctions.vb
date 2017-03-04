@@ -41,14 +41,22 @@ Sub Test()
 	MsgBox (rng.Cells(1, 2))
 End Sub
 
-Function MVC_GET_STATE_SCH(state_Str As String, attr As String) As String
+	Function MVC_GET_STATE_SCH(state_Str As String, attr As String, timeBlkStr As String) As String
 	Application.Volatile True
+
 	Dim tHRng As Range
 	Dim tVRng As Range
-	Dim searchStr As String
+	Dim hSearchStr As String
+	Dim hBSearchStr As String
+	Dim vSearchStr As String
+
 	Dim res As String
 
 	Dim modelFileName As String
+
+	hBSearchStr = attr
+	hSearchStr = state_Str
+	vSearchStr = timeBlkStr
 
 	modelFileName = "DATA_MVC.xlsx"
 
@@ -57,17 +65,30 @@ Function MVC_GET_STATE_SCH(state_Str As String, attr As String) As String
 	End If
 
 	Set tHRng = Range(getTableHRange("CONST_SCH"))
-	If attr = "MU" Then
+	Set tVRng = Range(getTableVRange("CONST_SCH"))
+
+	If timeBlkStr = "MU" Then
 		Set tVRng = Range(getTableVRange("CONST_SCH")).Offset(ColumnOffset:=1)
-		searchStr = "MWHR"
-	Else
-		Set tVRng = Range(getTableVRange("CONST_SCH"))
-		searchStr = attr
+		vSearchStr = "MWHR"
 	End If
 
-	res = NAG_TABLE_SEARCH_TWO(tHRng, state_Str, tHRng.Offset(RowOffset:=1), "Total", tVRng, searchStr).Cells(1, 1).Value
-	If attr = "MU" Then
+	If attr = "OA" Then
+		hBSearchStr = "STOA"
+	End If
+
+	res = NAG_TABLE_SEARCH_TWO(tHRng, hSearchStr, tHRng.Offset(RowOffset:=1), hBSearchStr, tVRng, vSearchStr).Cells(1, 1).Value
+
+	If attr = "OA" Then
+		hBSearchStr = "IEX"
+		res = res + NAG_TABLE_SEARCH_TWO(tHRng, hSearchStr, tHRng.Offset(RowOffset:=1), hBSearchStr, tVRng, vSearchStr).Cells(1, 1).Value
+		hBSearchStr = "PXI"
+		res = res + NAG_TABLE_SEARCH_TWO(tHRng, hSearchStr, tHRng.Offset(RowOffset:=1), hBSearchStr, tVRng, vSearchStr).Cells(1, 1).Value
+	End If
+
+	If timeBlkStr = "MU" Then
 		res = res / 1000
 	End If
+
 	MVC_GET_STATE_SCH = res
+
 End Function
