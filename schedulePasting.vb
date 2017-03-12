@@ -7,8 +7,7 @@ Dim startPos As Integer
 If (fileString Like "Report-RLDC-Dec-WEST(*") Then
     GetFileType = "ISGS-DC"
         Exit Function
-End If
-If (fileString Like "FullSchedule-InjectionSummary-ALL_Seller(*") Then
+ElseIf (fileString Like "FullSchedule-InjectionSummary-ALL_Seller(*") Then
     GetFileType = "ISGS-SCH"
         Exit Function
 ElseIf (fileString Like "FlowGate-Schedule-RevNo(*") Then
