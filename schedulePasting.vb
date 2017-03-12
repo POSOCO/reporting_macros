@@ -51,7 +51,7 @@ Sub LoopAllExcelFilesInFolder()
 Dim endMessage As String
 endMessage = "Pasted Sheets are "
 Dim thisFileName As String
-thisFileName = ActiveWorkbook.Name
+thisFileName = "SCHEDULE COMPUTATION_WBES.xls"
 
 Dim wb As Workbook
 Dim myPath As String
