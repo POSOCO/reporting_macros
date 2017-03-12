@@ -5,19 +5,41 @@ Function GetFileType(fileString As String) As String
 '
 Dim startPos As Integer
 If (fileString Like "Report-RLDC-Dec-WEST(*") Then
-    GetFileType = "Decleration"
+    GetFileType = "ISGS-DC"
         Exit Function
 End If
 If (fileString Like "FullSchedule-InjectionSummary-ALL_Seller(*") Then
-    GetFileType = "InjectionSchedule"
+    GetFileType = "ISGS-SCH"
         Exit Function
-End If
-If (fileString Like "FlowGate-Schedule-RevNo(*") Then
-    GetFileType = "FlowGateSchedule"
+ElseIf (fileString Like "FlowGate-Schedule-RevNo(*") Then
+    GetFileType = "Flow Gate Schedule"
         Exit Function
-End If
-If (fileString Like "NetSchedule-Summary-ALL_Buyer(*") Then
+ElseIf (fileString Like "NetSchedule-Summary-ALL_Buyer(*") Then
     GetFileType = "AllConsSchdule"
+        Exit Function
+ElseIf (fileString Like "NetSchedule-Summary-CSEB_State(*") Then
+    GetFileType = "CSEB"
+        Exit Function
+ElseIf (fileString Like "NetSchedule-Summary-DD_State(*") Then
+    GetFileType = "DD"
+        Exit Function
+ElseIf (fileString Like "NetSchedule-Summary-DNH_State(*") Then
+    GetFileType = "DNH"
+        Exit Function
+ElseIf (fileString Like "NetSchedule-Summary-ESIL_WR_State(*") Then
+    GetFileType = "ESIL"
+        Exit Function
+ElseIf (fileString Like "NetSchedule-Summary-GEB_State(*") Then
+    GetFileType = "GUJ"
+        Exit Function
+ElseIf (fileString Like "NetSchedule-Summary-GOA_State(*") Then
+    GetFileType = "GOA"
+        Exit Function
+ElseIf (fileString Like "NetSchedule-Summary-MP_State(*") Then
+    GetFileType = "MP"
+        Exit Function
+ElseIf (fileString Like "NetSchedule-Summary-MSEB_State(*") Then
+    GetFileType = "MSEB"
         Exit Function
 End If
 GetFileType = "NA"
@@ -62,23 +84,17 @@ Dim FldrPicker As FileDialog
         'Ensure Workbook has opened before moving on to next line of code
           DoEvents
         Application.DisplayAlerts = False
-        If GetFileType(myFile) = "Decleration" Then
+        Dim sheetName As String
+        sheetName = GetFileType(myFile)
+        If Not sheetName = "NA" Then
             wb.Worksheets(1).UsedRange.Copy
             Windows(thisFileName).Activate
-            Sheets("DC").Select
-            Range("A1").Select
-            Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
-        :=False, Transpose:=False
-        ElseIf GetFileType(myFile) = "InjectionSchedule" Then
-            wb.Worksheets(1).UsedRange.Copy
-            Windows(thisFileName).Activate
-            Sheets("SCH").Select
+            Sheets(sheetName).Select
             Range("A1").Select
             Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
         :=False, Transpose:=False
         End If
-        
-        
+
         'Save and Close Workbook
           wb.Close SaveChanges:=True
           
