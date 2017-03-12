@@ -48,6 +48,8 @@ End Function
 Sub LoopAllExcelFilesInFolder()
 'PURPOSE: To loop through all Excel files in a user specified folder and perform a set task on them
 'SOURCE: www.TheSpreadsheetGuru.com
+Dim endMessage As String
+endMessage = "Pasted Sheets are "
 Dim thisFileName As String
 thisFileName = ActiveWorkbook.Name
 
@@ -92,6 +94,7 @@ Dim FldrPicker As FileDialog
             Range("A1").Select
             Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
         :=False, Transpose:=False
+        endMessage = endMessage & sheetName & ", "
         End If
 
         'Save and Close Workbook
@@ -105,8 +108,8 @@ Dim FldrPicker As FileDialog
   Loop
 Application.DisplayAlerts = True
 'Message Box when tasks are completed
-  MsgBox "Task Complete!"
-
+  MsgBox "Task Complete!" & endMessage
+  'Windows(thisFileName).Worksheets("BUTTON").Cells(1, 1).Value = endMessage
 ResetSettings:
   'Reset Macro Optimization Settings
     Application.EnableEvents = True
