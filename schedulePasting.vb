@@ -1,36 +1,24 @@
-Function GetFileType(fileString As String, dateStr As String) As String
+Function GetFileType(fileString As String) As String
 '
 ' Macro1 Macro
 ' http://www.exceltrick.com/formulas_macros/vba-substring-function/ - String extraxtions
 '
 Dim startPos As Integer
 If (fileString Like "Report-RLDC-Dec-WEST(*") Then
-    startPos = InStr(fileString, ")-")
-    If (Mid(fileString, startPos + 2, 10) = dateStr) Then
-        GetFileType = "Decleration"
+    GetFileType = "Decleration"
         Exit Function
-    End If
 End If
 If (fileString Like "FullSchedule-InjectionSummary-ALL_Seller(*") Then
-    startPos = InStr(fileString, ")-")
-    If (Mid(fileString, startPos + 2, 10) = dateStr) Then
-        GetFileType = "InjectionSchedule"
+    GetFileType = "InjectionSchedule"
         Exit Function
-    End If
 End If
 If (fileString Like "FlowGate-Schedule-RevNo(*") Then
-    startPos = InStr(fileString, ")-")
-    If (Mid(fileString, startPos + 2, 10) = dateStr) Then
-        GetFileType = "FlowGateSchedule"
+    GetFileType = "FlowGateSchedule"
         Exit Function
-    End If
 End If
 If (fileString Like "NetSchedule-Summary-ALL_Buyer(*") Then
-    startPos = InStr(fileString, ")-")
-    If (Mid(fileString, startPos + 2, 10) = dateStr) Then
-        GetFileType = "AllConsSchdule"
+    GetFileType = "AllConsSchdule"
         Exit Function
-    End If
 End If
 GetFileType = "NA"
 '
@@ -52,7 +40,7 @@ Dim FldrPicker As FileDialog
   Application.Calculation = xlCalculationManual
 
 'In Case of Cancel
-  myPath = ActiveWorkbook.Path & "\"
+  myPath = ActiveWorkbook.Path & "\files\"
   If myPath = "" Then GoTo ResetSettings
 
 'Target File Extension (must include wildcard "*")
@@ -65,15 +53,22 @@ Dim FldrPicker As FileDialog
   Do While myFile <> ""
     'MsgBox (myFile)
     If myFile Like "*.csv" Or myFile Like "*.xlsx" Then
-        MsgBox (GetFileType(myFile, "01-03-2017"))
+        'MsgBox (GetFileType(myFile))
         'Set variable equal to opened workbook
           Set wb = Workbooks.Open(Filename:=myPath & myFile)
         
         'Ensure Workbook has opened before moving on to next line of code
           DoEvents
         
-        'Change First Worksheet's Background Fill Blue
-          wb.Worksheets(1).Range("A1:Z1").Interior.Color = RGB(255, 255, 0)
+        If GetFileType(myFile) = "Decleration" Then
+            wb.Worksheets(1).UsedRange.Copy
+            Sheets("DC").Range("A1").Select
+            
+        ElseIf GetFileType(myFile) = "InjectionSchedule" Then
+            wb.Worksheets(1).UsedRange.Copy
+            Sheets("SCH").Range("A1").Select
+        End If
+        
         
         'Save and Close Workbook
           wb.Close SaveChanges:=True
