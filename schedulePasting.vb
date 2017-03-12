@@ -27,6 +27,8 @@ End Function
 Sub LoopAllExcelFilesInFolder()
 'PURPOSE: To loop through all Excel files in a user specified folder and perform a set task on them
 'SOURCE: www.TheSpreadsheetGuru.com
+Dim thisFileName As String
+thisFileName = ActiveWorkbook.Name
 
 Dim wb As Workbook
 Dim myPath As String
@@ -59,14 +61,21 @@ Dim FldrPicker As FileDialog
         
         'Ensure Workbook has opened before moving on to next line of code
           DoEvents
-        
+        Application.DisplayAlerts = False
         If GetFileType(myFile) = "Decleration" Then
             wb.Worksheets(1).UsedRange.Copy
-            Sheets("DC").Range("A1").Select
-            
+            Windows(thisFileName).Activate
+            Sheets("DC").Select
+            Range("A1").Select
+            Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
         ElseIf GetFileType(myFile) = "InjectionSchedule" Then
             wb.Worksheets(1).UsedRange.Copy
-            Sheets("SCH").Range("A1").Select
+            Windows(thisFileName).Activate
+            Sheets("SCH").Select
+            Range("A1").Select
+            Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
         End If
         
         
@@ -79,7 +88,7 @@ Dim FldrPicker As FileDialog
     'Get next file name
       myFile = Dir
   Loop
-
+Application.DisplayAlerts = True
 'Message Box when tasks are completed
   MsgBox "Task Complete!"
 
